@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discover the Interconnected Earth</title>
-    <link rel="stylesheet" href="Webpage.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -181,6 +181,7 @@
     </div>
 
     <div class="explore-button">
+        
         <button class="submit-button" id="factButton">Find Out More!</button>
         <p id="fact" class="hidden"></p>
     </div>
@@ -225,7 +226,7 @@
 
     <div class="redirect-container">
         <h2>Explore More!</h2>
-        <button class="redirect-button" id="redirectButton">Go to Tableau Page</button>
+        <a href="#" id="redirectButton" class="submit-button">Go to New Page</a>
     </div>
 
     <footer>
@@ -234,46 +235,53 @@
 
     <script>
         function checkAnswer(type) {
-            const userInput = document.getElementById(`input${capitalizeFirstLetter(type)}`).value;
-            let feedback = "";
+            let userInput = '';
+            let feedbackElement = null;
 
-            if (type === "species") {
-                feedback = userInput ? "Great thought! The extinction of one species can have a ripple effect." : "Please share your thoughts!";
-                document.getElementById("speciesFeedback").textContent = feedback;
-            } else if (type === "pollution") {
-                feedback = userInput ? "Excellent! Pollution greatly impacts marine life." : "Don't forget to express your thoughts!";
-                document.getElementById("pollutionFeedback").textContent = feedback;
+            if (type === 'species') {
+                userInput = document.getElementById('inputSpecies').value.toLowerCase();
+                feedbackElement = document.getElementById('speciesFeedback');
+
+                if (userInput.includes('food chain') || userInput.includes('ecosystem')) {
+                    feedbackElement.innerText = "Great job! You're right! The extinction of one species can disrupt the entire ecosystem!";
+                } else {
+                    feedbackElement.innerText = "Interesting thought! Remember, every species plays a role in its ecosystem.";
+                }
+            } else if (type === 'pollution') {
+                userInput = document.getElementById('inputPollution').value.toLowerCase();
+                feedbackElement = document.getElementById('pollutionFeedback');
+
+                if (userInput.includes('harm') || userInput.includes('life')) {
+                    feedbackElement.innerText = "Exactly! Pollution can have devastating effects on marine ecosystems!";
+                } else {
+                    feedbackElement.innerText = "That's an interesting perspective! Pollution does impact marine life in many ways.";
+                }
             }
         }
 
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
-        document.getElementById("factButton").addEventListener("click", function() {
+        document.getElementById('factButton').addEventListener('click', function() {
             const facts = [
-                "Did you know? Over 70% of the Earth is covered by water!",
-                "Interesting fact: The Amazon rainforest produces more than 20% of the world’s oxygen!",
-                "Fun fact: One tree can absorb as much as 48 pounds of carbon dioxide a year!"
+                "Did you know? One tree can absorb up to 48 pounds of carbon dioxide per year.",
+                "Approximately 70% of the Earth's surface is covered by water.",
+                "Over 1 million species are at risk of extinction due to habitat loss and climate change."
             ];
             const randomFact = facts[Math.floor(Math.random() * facts.length)];
-            const factElement = document.getElementById("fact");
-            factElement.textContent = randomFact;
-            factElement.classList.toggle("hidden");
+            document.getElementById('fact').innerText = randomFact;
+            document.getElementById('fact').classList.remove('hidden');
         });
 
-        function showDetails(id) {
-            const detailElement = document.getElementById(id);
-            detailElement.classList.toggle("hidden");
-        }
-
-        document.getElementById("simulatorButton").addEventListener("click", function() {
+        document.getElementById('simulatorButton').addEventListener('click', function() {
+            window.location.href = 'https://Antony-Rubens.github.io/INTERCONNECTED-EARTH-react/';
+        });
+    document.getElementById("simulatorButton").addEventListener("click", function() {
             window.location.href = "Tableau1.html";
-        });
+});
 
-        document.getElementById("redirectButton").addEventListener("click", function() {
-            window.location.href = "Tableau2.html"; // Update to your actual file name
-        });
+
+        function showDetails(detailId) {
+            const details = document.getElementById(detailId);
+            details.classList.toggle('hidden');
+        }
     </script>
 </body>
 </html>
